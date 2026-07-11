@@ -1,0 +1,104 @@
+* {
+    font-family: sans-serif;
+}
+
+body {
+    background: rgba(27, 27, 129, 0.651);
+}
+
+.carousel {
+    width: 100%;
+    overflow-x: auto;
+    margin: 3em auto;
+    display: flex;
+    gap: 1em;
+    scroll-behavior: smooth;
+    anchor-name: --carousel;
+    scroll-snap-type: x mandatory;
+    scroll-marker-group: after;
+}
+
+.carousel::scroll-marker-group {
+    display: flex;
+    justify-content: center;
+    gap: .5em;
+}
+
+.card::scroll-marker{
+    content: '';
+    height: 1em;
+    width: 1em;
+    background: rgb(50, 127, 235);
+    border-radius: 50%;
+}
+
+.card::scroll-marker:target-current {
+    background-color: blueviolet;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel::scroll-button(right),
+.carousel::scroll-button(left) {
+    content: '🔜';
+    border: none;
+    background-color: blueviolet;
+    font-size: 2.3rem;
+    color: #ffffff;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    padding-bottom: .1em;
+    cursor: pointer;
+    position: fixed;
+    position-anchor: --carousel;
+    position-area: right center;
+    translate: -50%;
+    box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.1);
+}
+
+.carousel::scroll-button(left) {
+    content: '🔙';
+    position-area: left center;
+    translate: 50%;
+}
+
+.carousel::scroll-button(right):disabled,
+.carousel::scroll-button(left):disabled {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+.card {
+    scroll-snap-align: start;
+    flex: 0 0 20em;
+    height: 12em;
+    background: rgb(50, 127, 235);
+    padding: 1em;
+    border-radius: .5em;
+    text-align: center;
+    align-content: center;
+    color: #ffffff; 
+}
+
+@media (max-width: 500px) {
+    .card {
+        flex: 0 0 100%;
+    }
+}
+/* Verhindert, dass das Padding das Bild verkleinert */
+.card:has(img) {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+}
+
+/* Lässt das Bild die gesamte Karte perfekt ausfüllen */
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
